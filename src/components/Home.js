@@ -39,7 +39,7 @@ export default function Home() {
             </a>
           </li>
           <li className="nav-item" >
-            <Link to='/auth' className="nav-link" >
+            <Link to='/signup' className="nav-link" >
               Sign up
             </Link>
           </li>
