@@ -18,7 +18,7 @@ export default function Playertab() {
                 <img
                   src={profilePic}
                   alt="Admin"
-                  className="rounded-circle p-1 bg-primary"
+                  className="rounded p-1 bg-primary"
                   width={95}
                 />
                 <div className="mt-3">
