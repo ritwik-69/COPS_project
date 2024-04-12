@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGamepad,faDiamond,faWarehouse,faHeadSideVirus,faChartSimple,faBars,faListCheck  } from "@fortawesome/free-solid-svg-icons";
 import Playertab from './Playertab';
 import App from './App';
+import playerpic from './img_pfp.jpg'
 
 export default function Main() {
   const [content, setContent] = useState(<><Playertab/>
@@ -101,7 +102,7 @@ export default function Main() {
               aria-expanded="false"
             >
               <img
-                src="https://github.com/mdo.png"
+                src={playerpic}
                 alt="hugenerd"
                 width={30}
                 height={30}
