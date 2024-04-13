@@ -1,18 +1,41 @@
-import React ,{useState} from 'react';
+import React ,{useState,useEffect} from 'react';
 import './main.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGamepad,faDiamond,faWarehouse,faHeadSideVirus,faChartSimple,faBars,faListCheck  } from "@fortawesome/free-solid-svg-icons";
 import Playertab from './Playertab';
 import App from './App';
 import playerpic from './img_pfp.jpg'
+import { Link } from 'react-router-dom';
+import { getAuth,createUserWithEmailAndPassword, signInWithPopup,onAuthStateChanged } from "firebase/auth";
+import {app} from '../firebase'
+import Reward from './reward';
 
+
+const auth =getAuth(app);
 export default function Main() {
-  const [content, setContent] = useState(<><Playertab/>
+  
+  const [authuser,setAuthuser]=useState(null);
+  const [content, setContent] = useState(<><Playertab />
   <App/>
   </>);
+  useEffect(()=>{
+    const listen =onAuthStateChanged(auth,(user)=>{
+      if (user){
+        
+        setAuthuser(user);
+        console.log(authuser);
+      }
+      else{
+        setAuthuser(null)
+      }
+    })
+
+  },[])
+
+
 
   function handleRewardsClick() {
-    setContent(<div>This is the rewards content!</div>);
+    setContent(<Reward/>);
   }
   function handleInventoryClick() {
     setContent(<div>This is the Inventory content!</div>);
@@ -24,7 +47,7 @@ export default function Main() {
     setContent(<div>This is the statistics content!</div>);
   }
   function handleDashboardClick() {
-    setContent(<><Playertab/>
+    setContent(<><Playertab />
                <App/>
                </>);
   }
@@ -59,7 +82,7 @@ export default function Main() {
             <li>
               <a href="#" className="nav-link px-0 align-middle" onClick={handleRewardsClick}>
               <FontAwesomeIcon icon={faDiamond} />{'   '}
-                <span className="ms-1 d-none d-sm-inline">Rewards</span>
+                <span className="ms-1 d-none d-sm-inline">Shop</span>
               </a>
             </li>
             <li>
@@ -108,31 +131,13 @@ export default function Main() {
                 height={30}
                 className="rounded-circle"
               />
-              <span className="d-none d-sm-inline mx-1">Ritvik Gupta</span>
+              <span className="d-none d-sm-inline mx-1"></span>
             </a>
             <ul className="dropdown-menu dropdown-menu-dark text-small shadow">
               <li>
-                <a className="dropdown-item" href="#">
-                  New project...
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  Settings
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  Profile
-                </a>
-              </li>
-              <li>
-                <hr className="dropdown-divider" />
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
+                <Link className="dropdown-item" to='/'>
                   Sign out
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

@@ -1,8 +1,31 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link,Navigate } from 'react-router-dom';
+import { getAuth,createUserWithEmailAndPassword, signInWithPopup,onAuthStateChanged } from "firebase/auth";
+import {app} from '../firebase'
+import { useState } from 'react';
+import { GoogleAuthProvider } from "firebase/auth";
+
+const auth =getAuth(app);
+const provider = new GoogleAuthProvider();
 
 export default function Signup() {
+  const [email,setEmail]=useState("");
+  const [password,setPassword]=useState("");
+  const [name,setName]=useState()
+  const [signedin,setSignin]=useState(false);
+
+  const signupUser = () =>{
+    createUserWithEmailAndPassword(auth,email,password).then((usercred)=>{usercred.user.displayName={name}});
+    setSignin(true);
+  }
+  const signupwithgoogle = () =>{
+    signInWithPopup(auth,provider).then((result) =>setSignin(true))
+  }
+
     return (
+      <>
+      {signedin && (<Navigate to={'/main'} replace={true}/> )}
+
         <div className="Auth-form-container">
           <form className="Auth-form">
             <div className="Auth-form-content">
@@ -16,10 +39,14 @@ export default function Signup() {
               <div className="form-group mt-3">
                 <label>Full Name</label>
                 <input
-                  type="email"
+                  type="name"
                   className="form-control mt-1"
-                  placeholder="e.g Jane Doe"
+                  placeholder="Enter Full name"
+                  onChange={(e)=> setName(e.target.value)}
+                value={name}
                 />
+
+
               </div>
               <div className="form-group mt-3">
                 <label>Email address</label>
@@ -27,6 +54,8 @@ export default function Signup() {
                   type="email"
                   className="form-control mt-1"
                   placeholder="Email Address"
+                  onChange={(e)=> setEmail(e.target.value)}
+                value={email}
                 />
               </div>
               <div className="form-group mt-3">
@@ -34,14 +63,16 @@ export default function Signup() {
                 <input
                   type="password"
                   className="form-control mt-1"
-                  placeholder="Password"
+                  placeholder="Enter Password"
+                  onChange={(e)=> setPassword(e.target.value)}
+                value={password}
                 />
               </div>
               <div className="d-grid gap-2 mt-3">
-                <button type="submit" className="btn btn-primary">
-                <Link to="/main" className="text-light">
+                <button type="submit" className="btn btn-primary" onClick={signupUser}>
+                
                     Submit
-                    </Link>
+                    
                 </button>
               </div>
               <p className="text-center mt-2">
@@ -51,7 +82,7 @@ export default function Signup() {
     
                                 <div className="row">
                                     <div className="col-md-12">
-                                      <a className="btn  btn-google btn-block btn-outline" href="#"><img src="https://img.icons8.com/color/16/000000/google-logo.png"/> Sign up using google</a>
+                                      <a className="btn  btn-google btn-block btn-outline" href="#" onClick={signupwithgoogle}><img src="https://img.icons8.com/color/16/000000/google-logo.png"/> Sign up using google</a>
     
                                     </div>
                                 </div>
@@ -60,5 +91,6 @@ export default function Signup() {
             </div>
           </form>
         </div>
+        </>
       )
 }

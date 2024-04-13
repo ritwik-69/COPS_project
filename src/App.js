@@ -5,9 +5,21 @@ import Auth from "./components/Auth"
 import Main from "./components/Main"
 import Home from "./components/Home"
 import Signup from "./components/Signup"
+import { getDatabase,ref,set } from "firebase/database";
+import { app } from "./firebase";
+
+const db=getDatabase(app);
 
 
 function App(props) {
+
+  const putData = () => {
+    set(ref(db , 'user/ritwik'),{
+      id:1,
+      name:'ritwik',
+      age:20
+    })
+  }
   return (
     
      <BrowserRouter>

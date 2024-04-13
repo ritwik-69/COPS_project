@@ -3,10 +3,21 @@ import './styles.css';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse  } from "@fortawesome/free-solid-svg-icons";
+import { getDatabase,set,ref } from 'firebase/database';
+import { app } from '../firebase';
+const db=getDatabase(app);
 
 
 
 export default function Home() {
+
+  const putData = () => {
+    set(ref(db , 'user/ritwik'),{
+      id:1,
+      name:'ritwik',
+      age:20
+    })
+  }
   return (
     <div>
         <>
