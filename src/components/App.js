@@ -4,7 +4,7 @@ import { Button, Card, Form } from 'react-bootstrap';
 
 
 
-function Todo({ todo, index, markTodo, removeTodo }) {
+function Todo({ todo, index, markTodo, removeTodo, func}) {
   return (
     <div
       className="todo"
@@ -12,7 +12,7 @@ function Todo({ todo, index, markTodo, removeTodo }) {
     >
       <span style={{ textDecoration: todo.isDone ? "line-through" : "" }}>{todo.text}</span>
       <div>
-        <Button variant="outline-success" onClick={() => markTodo(index)}>✓</Button>{' '}
+        <Button variant="outline-success" onClick={() =>{markTodo(index);}} >✓</Button>{' '}
         <Button variant="outline-danger" onClick={() => removeTodo(index)}>✕</Button>
       </div>
     </div>
@@ -42,7 +42,7 @@ function FormTodo({ addTodo }) {
   );
 }
 
-function App() {
+function App(props) {
   const [todos, setTodos] = React.useState([
     {
       text: "This is a sample todo",
@@ -56,6 +56,7 @@ function App() {
   };
 
   const markTodo = index => {
+    props.func()
     const newTodos = [...todos];
     newTodos[index].isDone = true;
     setTodos(newTodos);

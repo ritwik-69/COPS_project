@@ -9,15 +9,59 @@ import { Link } from 'react-router-dom';
 import { getAuth,createUserWithEmailAndPassword, signInWithPopup,onAuthStateChanged } from "firebase/auth";
 import {app} from '../firebase'
 import Reward from './reward';
+import Stats from './Stats';
+import Inventory from './Inventory';
+import Skills from './Skills';
 
 
 const auth =getAuth(app);
-export default function Main() {
+export default function Main(props) {
   
-  const [authuser,setAuthuser]=useState(null);
-  const [content, setContent] = useState(<><Playertab />
-  <App/>
-  </>);
+  
+  const [level,setlevel]=useState(1);
+  const [xp,setXp]=useState(0);
+  const [credits,setCredits]=useState(0);
+  const [skillpoints,setskillpoints]=useState(0);
+  const [IntelligenceLvl,setIlvl]=useState(1);
+  const [Ixp,setIXp]=useState(0);
+  const width = (xp / 400) * 100 + '%';
+    const Iwidth =(Ixp / 400) * 100 + '%';
+
+    
+
+  function updatecounters(){
+    if (xp > 400) {
+        setlevel(level+Math.floor(xp/400));// if xp is 1000, two levels up
+        setXp(xp%400);// what is left when increasing levels
+     }
+    
+    }
+    function giveExp(number){
+      setCredits(credits+50);
+      setXp(xp+50);
+      setskillpoints(skillpoints+25)
+      updatecounters();//update
+  }
+  function updateIcounters(){
+    if (Ixp > 400) {
+        setIlvl(IntelligenceLvl+Math.floor(Ixp/400));// if xp is 1000, two levels up
+        setIXp(Ixp%400);// what is left when increasing levels
+     }
+
+     
+    }
+    
+  function buy(){
+    setCredits(credits-100);
+  }
+  function giveIExp(number){
+    setIXp(Ixp+50)
+    updateIcounters();
+
+    ;//update
+}
+
+    
   useEffect(()=>{
     const listen =onAuthStateChanged(auth,(user)=>{
       if (user){
@@ -31,24 +75,25 @@ export default function Main() {
     })
 
   },[])
+  const [authuser,setAuthuser]=useState(null);
+  const [content, setContent] = useState(<><Playertab level={level} width={width} credits={credits} skillpoints={skillpoints}/>
+  <App func={giveExp}/>
+  </>);
 
 
 
   function handleRewardsClick() {
-    setContent(<Reward/>);
+    setContent(<Reward level={level} width={width} credits={credits} skillpoints={skillpoints} buy={buy}/>);
   }
   function handleInventoryClick() {
-    setContent(<div>This is the Inventory content!</div>);
+    setContent(<Inventory level={level} width={width} credits={credits} skillpoints={skillpoints}/>);
   }
   function handleSkillsClick() {
-    setContent(<div>This is the skills content!</div>);
-  }
-  function handleStatisticsClick() {
-    setContent(<div>This is the statistics content!</div>);
+    setContent(<Skills level={level} width={width} credits={credits} skillpoints={skillpoints} skillIlvl={IntelligenceLvl} Ixp={Ixp} addbutton={giveIExp} Iwidth={Iwidth} refresh={handleSkillsClick}/>);
   }
   function handleDashboardClick() {
-    setContent(<><Playertab />
-               <App/>
+    setContent(<><Playertab level={level} width={width} credits={credits} skillpoints={skillpoints}/>
+               <App func={giveExp}/>
                </>);
   }
 
@@ -56,6 +101,7 @@ export default function Main() {
   return (
     <>
   {/* Hello world */}
+  {/* <button onClick={giveExp}>give xp</button> */}
   <div className="container-fluid">
     <div className="row flex-nowrap">
       <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
@@ -66,7 +112,7 @@ export default function Main() {
             onClick={handleDashboardClick}
           >
             <FontAwesomeIcon icon={faBars} />
-            <span className="ms-3 d-none d-sm-inline"> Menu</span>
+            <span className="ms-3 d-none d-sm-inline" onClick={giveExp}> Menu</span>
           </a>
           <ul
             className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
@@ -108,15 +154,9 @@ export default function Main() {
                 <span className="ms-1 d-none d-sm-inline">Skills</span>{" "}
               </a>
             </li>
-            <li>
-              <a href="#" className="nav-link px-0 align-middle" onClick={handleStatisticsClick}>
-              <FontAwesomeIcon icon={faChartSimple} />{'   '}
-                <span className="ms-1 d-none d-sm-inline">Statistics</span>{" "}
-              </a>
-            </li>
           </ul>
           <hr />
-          <div className="dropdown pb-4">
+          <div className="dropdown pb-4 ">
             <a
               href="#"
               className="d-flex align-items-center text-white text-decoration-none dropdown-toggle"

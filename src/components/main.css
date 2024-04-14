@@ -1,0 +1,7 @@
+.scrolling-element {
+    position: fixed;
+    top: 0;
+    left: 50%; /* Position in the middle horizontally */
+    transform: translateX(-50%);
+    transition: top 0.3s ease; /* Smooth transition */
+}
