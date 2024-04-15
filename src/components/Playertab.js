@@ -27,7 +27,7 @@ export default function Playertab(props) {
                     />
                     <div className="mt-4">
                       <h4>{props.user}</h4>
-                      <p className="text-secondary mb-5 text-dark" >New Player</p>
+                      <p className="text-secondary mb-5 text-dark" >IIT (BHU) Varanansi </p>
                     </div>
                   </div>
                 </div>
@@ -42,9 +42,12 @@ export default function Playertab(props) {
                     </div>
                     <div className="col-sm-9 text-secondary">
                       <input
+                      disabled
                         type="text"
                         className="form-control "
                         defaultValue={props.user}
+                        style={{ backgroundColor: '#ffffff' }}
+
                       />
                     </div>
                   </div>
@@ -54,9 +57,11 @@ export default function Playertab(props) {
                     </div>
                     <div className="col-sm-9 text-secondary">
                       <input
+                      disabled
                         type="text"
                         className="form-control"
                         defaultValue="Shadow Monarch"
+                        style={{ backgroundColor: '#ffffff' }}
                       />
                     </div>
                   </div>

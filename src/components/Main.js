@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 import { getAuth,createUserWithEmailAndPassword, signInWithPopup,onAuthStateChanged,signOut } from "firebase/auth";
 import {app} from '../firebase'
 import Reward from './reward';
-import Stats from './Stats';
 import Inventory from './Inventory';
 import Skills from './Skills';
 
@@ -40,14 +39,20 @@ const user=(auth.currentUser ? auth.currentUser : {displayName:"New Player"});
   const [Exp,setEXp]=useState(0);
   const [StrengthLvl,setSlvl]=useState(1);
   const [Sxp,setSXp]=useState(0);
-  const width = (xp / 400) * 100 + '%';
+  const [width,setwidth] = useState((xp / 400) * 100 + '%');
   const Iwidth =(Ixp / 400) * 100 + '%';
   const Awidth =(Axp / 400) * 100 + '%';
   const Swidth =(Sxp / 400) * 100 + '%';
   const Dwidth =(Dxp / 400) * 100 + '%';
   const Ewidth =(Exp / 400) * 100 + '%';
 
-    
+    useEffect(() =>{
+      localStorage.setItem('lvl',JSON.stringify(level))
+      localStorage.setItem('credits',JSON.stringify(credits))
+      localStorage.setItem('skill',JSON.stringify(skillpoints))
+      localStorage.setItem('width',JSON.stringify(width))
+
+    },[level,credits,skillpoints,width])
 
   function updatecounters(){
     if (xp > 400) {
@@ -61,6 +66,7 @@ const user=(auth.currentUser ? auth.currentUser : {displayName:"New Player"});
       setXp(xp+50);
       setskillpoints(skillpoints+25)
       updatecounters();//update
+
   }
   
     
@@ -89,8 +95,8 @@ const user=(auth.currentUser ? auth.currentUser : {displayName:"New Player"});
   }
   
   
-  const [content, setContent] = useState(<><Playertab user={displayname}level={level} width={width} credits={credits} skillpoints={skillpoints}/>
-  <App func={giveExp}/>
+  const [content, setContent] = useState(<>
+  <App user={displayname} xp={xp} level={level} width={width} credits={credits} skillpoints={skillpoints} skillIlvl={IntelligenceLvl} Ixp={Ixp}  Iwidth={Iwidth} skillAlvl={AgilityLvl} Axp={Axp}  Awidth={Awidth} skillDlvl={DisciplineLvl} Dxp={Dxp}  Dwidth={Dwidth} skillSlvl={StrengthLvl} Sxp={Sxp}  Swidth={Swidth} skillElvl={EmotionsLvl} Exp={Ixp}  Ewidth={Ewidth} func={updateEverything} Squantity={Squantity} Wquantity={Wquantity} Vquantity={Vquantity}/>
   </>);
 
 function getout(){
@@ -98,17 +104,17 @@ function getout(){
 }
 
   function handleRewardsClick() {
-    setContent(<Reward user={displayname} level={level} width={width} credits={credits} skillpoints={skillpoints} buy={buy} adds={addS} addv={addV} addw={addW}/>);
+    setContent(<Reward user={displayname} xp={xp} level={level} width={width} credits={credits} skillpoints={skillpoints} skillIlvl={IntelligenceLvl} Ixp={Ixp}  Iwidth={Iwidth} skillAlvl={AgilityLvl} Axp={Axp}  Awidth={Awidth} skillDlvl={DisciplineLvl} Dxp={Dxp}  Dwidth={Dwidth} skillSlvl={StrengthLvl} Sxp={Sxp}  Swidth={Swidth} skillElvl={EmotionsLvl} Exp={Ixp}  Ewidth={Ewidth} func={updateEverything} Squantity={Squantity} Wquantity={Wquantity} Vquantity={Vquantity}/>);
   }
   function handleInventoryClick() {
-    setContent(<Inventory user={displayname} level={level} width={width} credits={credits} skillpoints={skillpoints} Squantity={Squantity} Wquantity={Wquantity} Vquantity={Vquantity} UseS={UseS} UseV={UseV} UseW={UseW}/>);
+    setContent(<Inventory user={displayname} xp={xp} level={level} width={width} credits={credits} skillpoints={skillpoints} skillIlvl={IntelligenceLvl} Ixp={Ixp}  Iwidth={Iwidth} skillAlvl={AgilityLvl} Axp={Axp}  Awidth={Awidth} skillDlvl={DisciplineLvl} Dxp={Dxp}  Dwidth={Dwidth} skillSlvl={StrengthLvl} Sxp={Sxp}  Swidth={Swidth} skillElvl={EmotionsLvl} Exp={Ixp}  Ewidth={Ewidth} func={updateEverything} Squantity={Squantity} Wquantity={Wquantity} Vquantity={Vquantity}/>);
   }
   function handleSkillsClick() {
-    setContent(<Skills user={displayname} level={level} width={width} credits={credits} skillpoints={skillpoints} skillIlvl={IntelligenceLvl} Ixp={Ixp} addIbutton={giveIExp} Iwidth={Iwidth} skillAlvl={AgilityLvl} Axp={Axp} addAbutton={giveAExp} Awidth={Awidth} skillDlvl={DisciplineLvl} Dxp={Ixp} addDbutton={giveSExp} Dwidth={Iwidth} skillSlvl={StrengthLvl} Sxp={Sxp} addSbutton={giveSExp} Swidth={Swidth} skillElvl={EmotionsLvl} Exp={Ixp} addEbutton={giveEExp} Ewidth={Ewidth} />);
+    setContent(<Skills user={displayname} xp={xp} level={level} width={width} credits={credits} skillpoints={skillpoints} skillIlvl={IntelligenceLvl} Ixp={Ixp}  Iwidth={Iwidth} skillAlvl={AgilityLvl} Axp={Axp}  Awidth={Awidth} skillDlvl={DisciplineLvl} Dxp={Dxp}  Dwidth={Dwidth} skillSlvl={StrengthLvl} Sxp={Sxp}  Swidth={Swidth} skillElvl={EmotionsLvl} Exp={Ixp}  Ewidth={Ewidth} func={updateEverything} Squantity={Squantity} Wquantity={Wquantity} Vquantity={Vquantity} />);
   }
   function handleDashboardClick() {
-    setContent(<><Playertab user={displayname} level={level} width={width} credits={credits} skillpoints={skillpoints}/>
-               <App func={giveExp}/>
+    setContent(<>
+               <App user={displayname} xp={xp} level={level} width={width} credits={credits} skillpoints={skillpoints} skillIlvl={IntelligenceLvl} Ixp={Ixp}  Iwidth={Iwidth} skillAlvl={AgilityLvl} Axp={Axp}  Awidth={Awidth} skillDlvl={DisciplineLvl} Dxp={Dxp}  Dwidth={Dwidth} skillSlvl={StrengthLvl} Sxp={Sxp}  Swidth={Swidth} skillElvl={EmotionsLvl} Exp={Ixp}  Ewidth={Ewidth} func={updateEverything} Squantity={Squantity} Wquantity={Wquantity} Vquantity={Vquantity}/>
                </>);
   }
 
@@ -192,6 +198,30 @@ function giveSExp(number){
 
   ;//update
 }
+
+// update everything
+
+function updateEverything(level,displayName,credits,skillpoints,IntelligenceLvl,AgilityLvl,DisciplineLvl,EmotionsLvl,StrengthLvl,Ixp,Axp,Dxp,Exp,Sxp,Squantity,Vquantity,Wquantity){
+        setlevel(level);
+        setDisplayname(displayName);
+        setCredits(credits);
+        setskillpoints(skillpoints);
+        setAlvl(AgilityLvl);
+        setSlvl(StrengthLvl);
+        setIlvl(IntelligenceLvl);
+        setDlvl(DisciplineLvl);
+        setElvl(EmotionsLvl);
+        setAXp(Axp)
+        setIXp(Ixp)
+        setSXp(Sxp)
+        setEXp(Exp)
+        setDXp(Dxp)
+        setSquantity(Squantity)
+        setVquantity(Vquantity)
+        setWquantity(Wquantity)
+    
+
+}
   
   return (
     <>
@@ -207,7 +237,7 @@ function giveSExp(number){
             onClick={handleDashboardClick}
           >
             <FontAwesomeIcon icon={faBars} />
-            <span className="ms-3 d-none d-sm-inline" onClick={giveExp}> Menu</span>
+            <span className="ms-3 d-none d-sm-inline" > Menu</span>
           </a>
           <ul
             className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"

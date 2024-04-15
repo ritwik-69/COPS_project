@@ -7,9 +7,45 @@ import 'reactjs-popup/dist/index.css';
 
 
 export default function Reward(props) {
+    const [displayname,setDisplayname]=useState(props.user)
+ 
+  
+  const [level,setlevel]=useState(props.level);
+  const [xp,setXp]=useState(props.xp);
+  const [credits,setCredits]=useState(props.credits);
+  const [skillpoints,setskillpoints]=useState(props.skillpoints);
+  const [IntelligenceLvl,setIlvl]=useState(props.skillIlvl);
+  const [Ixp,setIXp]=useState(props.Ixp);
+  const [Squantity,setSquantity]=useState(props.Squantity);
+  const [Vquantity,setVquantity]=useState(props.Vquantity);
+  const [Wquantity,setWquantity]=useState(props.Wquantity);
+  const [AgilityLvl,setAlvl]=useState(props.skillAlvl);
+  const [Axp,setAXp]=useState(props.Axp);
+  const [DisciplineLvl,setDlvl]=useState(props.skillDlvl);
+  const [Dxp,setDXp]=useState(props.Dxp);
+  const [EmotionsLvl,setElvl]=useState(props.skillElvl);
+  const [Exp,setEXp]=useState(props.Exp);
+  const [StrengthLvl,setSlvl]=useState(props.skillSlvl);
+  const [Sxp,setSXp]=useState(props.Sxp);
+
+  const width = (xp / 400) * 100 + '%';
+  function buy(){
+    setCredits(credits-100);
+  }
+
+  function addS(){
+    setSquantity(Squantity+1)
+  }
+  function addW(){
+    setWquantity(Wquantity+1)
+  }
+  function addV(){
+    setVquantity(Vquantity+1)
+  }
+
   return (
     <div>
-      <Playertab user={props.user} level={props.level} width={props.width} credits={props.credits} skillpoints={props.skillpoints}/>
+      <Playertab user={displayname} level={level} width={props.width} credits={credits} skillpoints={skillpoints}/>
       
 
       
@@ -26,7 +62,7 @@ export default function Reward(props) {
                                 <div className="or-container"><div className="line-separator"></div> <div className="line-separator"></div></div>
                                 <p className="card-text "> <h6> Play a sport of your interest for 1 hour whenever you wish to</h6> </p>
                                 <p className="card-text "> <h6>Cost: 100 <FontAwesomeIcon icon={faDiamond} /> </h6> </p>
-                                {props.credits>0 ? <button className='btn btn-primary' onClick={()=>{props.buy();props.adds()}}> Add to Inventory</button> :<Popup trigger={<button className='btn btn-primary'> Add to Inventory</button>} position="right center">
+                                {credits>0 ? <button className='btn btn-primary' onClick={()=>{buy();addS();props.func(level,displayname,credits,skillpoints,IntelligenceLvl,AgilityLvl,DisciplineLvl,EmotionsLvl,StrengthLvl,Ixp,Axp,Dxp,Exp,Sxp,Squantity,Vquantity,Wquantity)}}> Add to Inventory</button> :<Popup trigger={<button className='btn btn-primary'> Add to Inventory</button>} position="right center">
     <div>You do not have enough credits to buy this item</div>
   </Popup>}
                             </div>
@@ -39,7 +75,7 @@ export default function Reward(props) {
                                 <div className="or-container"><div className="line-separator"></div> <div className="line-separator"></div></div>
                                 <p className="card-text "> <h6> Play a Videogames of your interest for 1 hour whenever you wish to</h6> </p>
                                 <p className="card-text "> <h6>Cost: 100 <FontAwesomeIcon icon={faDiamond} /> </h6> </p>
-                                {props.credits>0 ? <button className='btn btn-primary' onClick={()=>{props.buy();props.addv()}}> Add to Inventory</button> :<Popup trigger={<button className='btn btn-primary'> Add to Inventory</button>} position="right center">
+                                {credits>0 ? <button className='btn btn-primary' onClick={()=>{buy();addV();props.func(level,displayname,credits,skillpoints,IntelligenceLvl,AgilityLvl,DisciplineLvl,EmotionsLvl,StrengthLvl,Ixp,Axp,Dxp,Exp,Sxp,Squantity,Vquantity,Wquantity)}}> Add to Inventory</button> :<Popup trigger={<button className='btn btn-primary'> Add to Inventory</button>} position="right center">
     <div>You do not have enough credits to buy this item</div>
   </Popup>}
                             </div>
@@ -52,7 +88,7 @@ export default function Reward(props) {
                                 <div className="or-container"><div className="line-separator"></div> <div className="line-separator"></div></div>
                                 <p className="card-text "> <h6>watch Web series or anime of your choice for 1 hour whenever you wish to</h6> </p>
                                 <p className="card-text "> <h6>Cost: 100 <FontAwesomeIcon icon={faDiamond} /> </h6> </p>
-                                {props.credits>0 ? <button className='btn btn-primary' onClick={()=>{props.buy();props.addw()}}> Add to Inventory</button> :<Popup trigger={<button className='btn btn-primary'> Add to Inventory</button>} position="right center">
+                                {credits>0 ? <button className='btn btn-primary' onClick={()=>{buy();addW();props.func(level,displayname,credits,skillpoints,IntelligenceLvl,AgilityLvl,DisciplineLvl,EmotionsLvl,StrengthLvl,Ixp,Axp,Dxp,Exp,Sxp,Squantity,Vquantity,Wquantity)}}> Add to Inventory</button> :<Popup trigger={<button className='btn btn-primary'> Add to Inventory</button>} position="right center">
     <div>You do not have enough credits to buy this item</div>
   </Popup>}
                             </div>
