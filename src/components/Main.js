@@ -6,7 +6,7 @@ import Playertab from './Playertab';
 import App from './App';
 import playerpic from './img_pfp.jpg'
 import { Link } from 'react-router-dom';
-import { getAuth,createUserWithEmailAndPassword, signInWithPopup,onAuthStateChanged } from "firebase/auth";
+import { getAuth,createUserWithEmailAndPassword, signInWithPopup,onAuthStateChanged,signOut } from "firebase/auth";
 import {app} from '../firebase'
 import Reward from './reward';
 import Stats from './Stats';
@@ -14,9 +14,14 @@ import Inventory from './Inventory';
 import Skills from './Skills';
 
 
-const auth =getAuth(app);
+
+
+
 export default function Main(props) {
-  
+  const auth =getAuth(app);
+const user=(auth.currentUser ? auth.currentUser : {displayName:"New Player"});
+  const [displayname,setDisplayname]=useState(user.displayName)
+ 
   
   const [level,setlevel]=useState(1);
   const [xp,setXp]=useState(0);
@@ -24,8 +29,23 @@ export default function Main(props) {
   const [skillpoints,setskillpoints]=useState(0);
   const [IntelligenceLvl,setIlvl]=useState(1);
   const [Ixp,setIXp]=useState(0);
+  const [Squantity,setSquantity]=useState(0);
+  const [Vquantity,setVquantity]=useState(0);
+  const [Wquantity,setWquantity]=useState(0);
+  const [AgilityLvl,setAlvl]=useState(1);
+  const [Axp,setAXp]=useState(0);
+  const [DisciplineLvl,setDlvl]=useState(1);
+  const [Dxp,setDXp]=useState(0);
+  const [EmotionsLvl,setElvl]=useState(1);
+  const [Exp,setEXp]=useState(0);
+  const [StrengthLvl,setSlvl]=useState(1);
+  const [Sxp,setSXp]=useState(0);
   const width = (xp / 400) * 100 + '%';
-    const Iwidth =(Ixp / 400) * 100 + '%';
+  const Iwidth =(Ixp / 400) * 100 + '%';
+  const Awidth =(Axp / 400) * 100 + '%';
+  const Swidth =(Sxp / 400) * 100 + '%';
+  const Dwidth =(Dxp / 400) * 100 + '%';
+  const Ewidth =(Exp / 400) * 100 + '%';
 
     
 
@@ -37,11 +57,61 @@ export default function Main(props) {
     
     }
     function giveExp(number){
-      setCredits(credits+50);
+      setCredits(credits+100);
       setXp(xp+50);
       setskillpoints(skillpoints+25)
       updatecounters();//update
   }
+  
+    
+  function buy(){
+    setCredits(credits-100);
+  }
+
+  function addS(){
+    setSquantity(Squantity+1)
+  }
+  function addW(){
+    setWquantity(Wquantity+1)
+  }
+  function addV(){
+    setVquantity(Vquantity+1)
+  }
+
+  function UseS(){
+    setSquantity(Squantity-1)
+  }
+  function UseV(){
+    setVquantity(Vquantity-1)
+  }
+  function UseW(){
+    setWquantity(Wquantity-1)
+  }
+  
+  
+  const [content, setContent] = useState(<><Playertab user={displayname}level={level} width={width} credits={credits} skillpoints={skillpoints}/>
+  <App func={giveExp}/>
+  </>);
+
+function getout(){
+  signOut(auth).then();
+}
+
+  function handleRewardsClick() {
+    setContent(<Reward user={displayname} level={level} width={width} credits={credits} skillpoints={skillpoints} buy={buy} adds={addS} addv={addV} addw={addW}/>);
+  }
+  function handleInventoryClick() {
+    setContent(<Inventory user={displayname} level={level} width={width} credits={credits} skillpoints={skillpoints} Squantity={Squantity} Wquantity={Wquantity} Vquantity={Vquantity} UseS={UseS} UseV={UseV} UseW={UseW}/>);
+  }
+  function handleSkillsClick() {
+    setContent(<Skills user={displayname} level={level} width={width} credits={credits} skillpoints={skillpoints} skillIlvl={IntelligenceLvl} Ixp={Ixp} addIbutton={giveIExp} Iwidth={Iwidth} skillAlvl={AgilityLvl} Axp={Axp} addAbutton={giveAExp} Awidth={Awidth} skillDlvl={DisciplineLvl} Dxp={Ixp} addDbutton={giveSExp} Dwidth={Iwidth} skillSlvl={StrengthLvl} Sxp={Sxp} addSbutton={giveSExp} Swidth={Swidth} skillElvl={EmotionsLvl} Exp={Ixp} addEbutton={giveEExp} Ewidth={Ewidth} />);
+  }
+  function handleDashboardClick() {
+    setContent(<><Playertab user={displayname} level={level} width={width} credits={credits} skillpoints={skillpoints}/>
+               <App func={giveExp}/>
+               </>);
+  }
+
   function updateIcounters(){
     if (Ixp > 400) {
         setIlvl(IntelligenceLvl+Math.floor(Ixp/400));// if xp is 1000, two levels up
@@ -50,62 +120,87 @@ export default function Main(props) {
 
      
     }
-    
-  function buy(){
-    setCredits(credits-100);
-  }
   function giveIExp(number){
-    setIXp(Ixp+50)
+    setskillpoints(skillpoints-25);
+    setIXp(Ixp+50);
     updateIcounters();
+
 
     ;//update
 }
+function updateAcounters(){
+  if (Axp > 400) {
+      setAlvl(AgilityLvl+Math.floor(Axp/400));// if xp is 1000, two levels up
+      setAXp(Axp%400);// what is left when increasing levels
+   }
 
-    
-  useEffect(()=>{
-    const listen =onAuthStateChanged(auth,(user)=>{
-      if (user){
-        
-        setAuthuser(user);
-        console.log(authuser);
-      }
-      else{
-        setAuthuser(null)
-      }
-    })
-
-  },[])
-  const [authuser,setAuthuser]=useState(null);
-  const [content, setContent] = useState(<><Playertab level={level} width={width} credits={credits} skillpoints={skillpoints}/>
-  <App func={giveExp}/>
-  </>);
-
-
-
-  function handleRewardsClick() {
-    setContent(<Reward level={level} width={width} credits={credits} skillpoints={skillpoints} buy={buy}/>);
+   
   }
-  function handleInventoryClick() {
-    setContent(<Inventory level={level} width={width} credits={credits} skillpoints={skillpoints}/>);
-  }
-  function handleSkillsClick() {
-    setContent(<Skills level={level} width={width} credits={credits} skillpoints={skillpoints} skillIlvl={IntelligenceLvl} Ixp={Ixp} addbutton={giveIExp} Iwidth={Iwidth} refresh={handleSkillsClick}/>);
-  }
-  function handleDashboardClick() {
-    setContent(<><Playertab level={level} width={width} credits={credits} skillpoints={skillpoints}/>
-               <App func={giveExp}/>
-               </>);
-  }
+function giveAExp(number){
+  setskillpoints(skillpoints-25);
+  setAXp(Ixp+50);
+  updateAcounters();
 
+
+  ;//update
+}
+function updateEcounters(){
+  if (Exp > 400) {
+      setIlvl(EmotionsLvl+Math.floor(Exp/400));// if xp is 1000, two levels up
+      setIXp(Exp%400);// what is left when increasing levels
+   }
+
+   
+  }
+function giveEExp(number){
+  setskillpoints(skillpoints-25);
+  setEXp(Ixp+50);
+  updateEcounters();
+
+
+  ;//update
+}
+function updateDcounters(){
+  if (Dxp > 400) {
+      setIlvl(DisciplineLvl+Math.floor(Dxp/400));// if xp is 1000, two levels up
+      setIXp(Dxp%400);// what is left when increasing levels
+   }
+
+   
+  }
+function giveDExp(number){
+  setskillpoints(skillpoints-25);
+  setDXp(Ixp+50);
+  updateDcounters();
+
+
+  ;//update
+}
+function updateScounters(){
+  if (Sxp > 400) {
+      setIlvl(StrengthLvl+Math.floor(Sxp/400));// if xp is 1000, two levels up
+      setIXp(Sxp%400);// what is left when increasing levels
+   }
+
+   
+  }
+function giveSExp(number){
+  setskillpoints(skillpoints-25);
+  setSXp(Ixp+50);
+  updateScounters();
+
+
+  ;//update
+}
   
   return (
     <>
   {/* Hello world */}
   {/* <button onClick={giveExp}>give xp</button> */}
-  <div className="container-fluid">
-    <div className="row flex-nowrap">
-      <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-        <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+  <div className="container-fluid  " >
+    <div className="row flex-nowrap " >
+      <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark " >
+        <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100 position-fixed">
           <a
             href="#"
             className="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none"
@@ -171,11 +266,11 @@ export default function Main(props) {
                 height={30}
                 className="rounded-circle"
               />
-              <span className="d-none d-sm-inline mx-1"></span>
+              <span className="d-none d-sm-inline mx-1">{displayname}</span>
             </a>
             <ul className="dropdown-menu dropdown-menu-dark text-small shadow">
               <li>
-                <Link className="dropdown-item" to='/'>
+                <Link className="dropdown-item" to='/' onClick={getout()}>
                   Sign out
                 </Link>
               </li>

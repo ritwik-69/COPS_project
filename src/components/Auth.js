@@ -16,7 +16,7 @@ export default function (props) {
 
   const signinUser = () => {
     signInWithEmailAndPassword(auth,email,password).then((usercred)=>setSignin(true)).catch((err) => setError( <p class="text-center text-danger">Incorrect email/password</p>))
-
+    
   }
   const signupwithgoogle = () =>{
     signInWithPopup(auth,provider).then((result)=>{setSignin(true)});

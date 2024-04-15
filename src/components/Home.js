@@ -2,7 +2,7 @@ import React from 'react';
 import './styles.css';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse  } from "@fortawesome/free-solid-svg-icons";
+import { faHouse,faArrowUp  } from "@fortawesome/free-solid-svg-icons";
 import { getDatabase,set,ref } from 'firebase/database';
 import { app } from '../firebase';
 const db=getDatabase(app);
@@ -26,10 +26,10 @@ export default function Home() {
     className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
     id="mainNav"
   >
-    <div className="container px-4">
+    <div className="container px-0 ">
       <h1 className="navbar-brand" >
       <FontAwesomeIcon icon={faHouse} />{' '}
-        MY-APP 
+        Level-Up
       </h1>
       <button
         className="navbar-toggler"
@@ -66,7 +66,7 @@ export default function Home() {
   {/* Header*/}
   <header className="bg-primary bg-gradient text-white">
     <div className="container py-5 px-4 text-center" style={{ width: 500, height: 400 }}>
-      <h1 className="fw-bolder">Welcome to My-app</h1>
+      <h1 className="fw-bolder">Welcome to Level-Up{' '}<FontAwesomeIcon icon={faArrowUp} /></h1>
       <p className="lead">
       Boost your efficiency with our intuitive productivity website, designed to streamline your tasks and maximize your time.
       </p>
@@ -80,25 +80,20 @@ export default function Home() {
     <div className="container px-4">
       <div className="row gx-4 justify-content-center">
         <div className="col-lg-8">
-          <h2>About this page</h2>
+          <h2>About this Website</h2>
           <p className="lead">
-            This is a great place to talk about your webpage. This template is
-            purposefully unstyled so you can use it as a boilerplate or starting
-            point for you own landing page designs! This template features:
+            This is a Great Website to Manage and Track your Tasks in a fun and Exciting way and achieve ultimate productivity.In this website you can:
           </p>
           <ul>
-            <li>Clickable nav links that smooth scroll to page sections</li>
+            <li>Add your current tasks to do and on completing task gain experience to <strong>Level Up</strong> </li>
             <li>
-              Responsive behavior when clicking nav links perfect for a one page
-              website
+             Gain credits to spent on shop where you can buy fun activities and add it to your inventory
             </li>
             <li>
-              Bootstrap's scrollspy feature which highlights which section of
-              the page you're on in the navbar
+              Gain skill points and assign it to specific skills you think u gained from doing a task and <strong>Level Up</strong> your individual skills.
             </li>
             <li>
-              Minimal custom CSS so you are free to explore your own unique
-              design options
+              Use this to fix your life by keeping a track of your day to day activities by gamifying your life
             </li>
           </ul>
         </div>
@@ -110,7 +105,7 @@ export default function Home() {
   <footer className="py-5 bg-dark">
     <div className="container px-4">
       <p className="m-0 text-center text-white">
-        Copyright © Your Website 2023
+        Copyright © Level-Up 2024
       </p>
     </div>
   </footer>

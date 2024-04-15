@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link,Navigate } from 'react-router-dom';
-import { getAuth,createUserWithEmailAndPassword, signInWithPopup,onAuthStateChanged } from "firebase/auth";
+import { getAuth,createUserWithEmailAndPassword, signInWithPopup,onAuthStateChanged,updateProfile } from "firebase/auth";
 import {app} from '../firebase'
 import { useState } from 'react';
 import { GoogleAuthProvider } from "firebase/auth";
@@ -15,7 +15,11 @@ export default function Signup() {
   const [signedin,setSignin]=useState(false);
 
   const signupUser = () =>{
-    createUserWithEmailAndPassword(auth,email,password).then((usercred)=>{usercred.user.displayName={name}});
+    createUserWithEmailAndPassword(auth,email,password)
+    const user = auth.currentUser;
+    updateProfile(user, {
+      displayName: {name}, 
+    })
     setSignin(true);
   }
   const signupwithgoogle = () =>{

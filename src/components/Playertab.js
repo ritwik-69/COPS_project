@@ -16,7 +16,7 @@ export default function Playertab(props) {
         <div className="main-body">
           <div className="row">
             <div className="col-lg-4">
-              <div className="card">
+              <div className="card ">
                 <div className="card-body">
                   <div className="d-flex flex-column align-items-center text-center">
                     <img
@@ -25,16 +25,16 @@ export default function Playertab(props) {
                       className="rounded p-1 bg-primary"
                       width={95}
                     />
-                    <div className="mt-1">
-                      <h4>{props.name}</h4>
-                      <p className="text-secondary mb-5" >Full Stack Developer</p>
+                    <div className="mt-4">
+                      <h4>{props.user}</h4>
+                      <p className="text-secondary mb-5 text-dark" >New Player</p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <div className="col-lg-8">
-              <div className="card">
+              <div className="card ">
                 <div className="card-body">
                   <div className="row mb-3">
                     <div className="col-sm-3">
@@ -44,7 +44,7 @@ export default function Playertab(props) {
                       <input
                         type="text"
                         className="form-control "
-                        defaultValue="Ritvik Gupta"
+                        defaultValue={props.user}
                       />
                     </div>
                   </div>
