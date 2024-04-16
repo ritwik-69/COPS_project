@@ -26,7 +26,8 @@ export default function Inventory(props) {
   const [Exp,setEXp]=useState(props.Exp);
   const [StrengthLvl,setSlvl]=useState(props.skillSlvl);
   const [Sxp,setSXp]=useState(props.Sxp);
-  const width = (xp / 400) * 100 + '%';
+  const [width,setwidth]=useState(props.width);
+  
 
     function UseS(){
         setSquantity(Squantity-1)
@@ -40,7 +41,7 @@ export default function Inventory(props) {
       
     return (
         <div>
-            <Playertab user={displayname} level={level} width={width} credits={credits} skillpoints={skillpoints}/>
+            <Playertab xp={xp} user={displayname} level={level} width={width} credits={credits} skillpoints={skillpoints}/>
             <div className="card ">
                 <div className='card-body'>
                 <div className="card w-50 offset-3 text-center" style={{backgroundColor: '#ffffff', }}>

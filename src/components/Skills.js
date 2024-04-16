@@ -26,12 +26,12 @@ export default function Skills(props) {
   const [Exp,setEXp]=useState(props.Exp);
   const [StrengthLvl,setSlvl]=useState(props.skillSlvl);
   const [Sxp,setSXp]=useState(props.Sxp);
-  const width = (xp / 400) * 100 + '%';
   const Iwidth =(Ixp / 400) * 100 + '%';
   const Awidth =(Axp / 400) * 100 + '%';
   const Swidth =(Sxp / 400) * 100 + '%';
   const Dwidth =(Dxp / 400) * 100 + '%';
   const Ewidth =(Exp / 400) * 100 + '%';
+  const [width,setWidth] = useState(props.width);
 
   function updateIcounters(){
     if (Ixp > 400) {
@@ -114,7 +114,7 @@ export default function Skills(props) {
 
     return (
         <div>
-            <Playertab user={displayname} level={level} width={width} credits={credits} skillpoints={skillpoints}/>
+            <Playertab xp ={xp} user={displayname} level={level} width={width} credits={credits} skillpoints={skillpoints}/>
             <div className="card ">
                 <div className='card-body'>
                     <div className="card w-50 offset-3 text-center" style={{ backgroundColor: '#ffffff', }}>
@@ -137,7 +137,7 @@ export default function Skills(props) {
                                             aria-valuemax={100}
                                         />
                                     </div>
-                                    {skillpoints>0 ? <a className="btn btn-outline-dark btn-sm mt-1" onClick={()=>{giveIExp();props.func(level,displayname,credits,skillpoints,IntelligenceLvl,AgilityLvl,DisciplineLvl,EmotionsLvl,StrengthLvl,Ixp,Axp,Dxp,Exp,Sxp,Squantity,Vquantity,Wquantity)}}>+</a> :<Popup trigger={<a className="btn btn-outline-dark btn-sm mt-1" >+</a>} position="right center">
+                                    {skillpoints>0 ? <a className="btn btn-outline-dark btn-sm mt-1" onClick={()=>{giveIExp();props.func(level,displayname,credits,skillpoints,IntelligenceLvl,AgilityLvl,DisciplineLvl,EmotionsLvl,StrengthLvl,Ixp,Axp,Dxp,Exp,Sxp,Squantity,Vquantity,Wquantity,width)}}>+</a> :<Popup trigger={<a className="btn btn-outline-dark btn-sm mt-1" >+</a>} position="right center">
     <div>You do not have enough Skillpoints to level up</div>
   </Popup> }
                                 </div>
@@ -159,7 +159,7 @@ export default function Skills(props) {
                                             aria-valuemax={100}
                                         />
                                     </div>
-                                    {skillpoints>0 ? <a className="btn btn-outline-dark btn-sm mt-1" onClick={()=>{giveAExp();props.func(level,displayname,credits,skillpoints,IntelligenceLvl,AgilityLvl,DisciplineLvl,EmotionsLvl,StrengthLvl,Ixp,Axp,Dxp,Exp,Sxp,Squantity,Vquantity,Wquantity)}}>+</a> :<Popup trigger={<a className="btn btn-outline-dark btn-sm mt-1" >+</a>} position="right center">
+                                    {skillpoints>0 ? <a className="btn btn-outline-dark btn-sm mt-1" onClick={()=>{giveAExp();props.func(level,displayname,credits,skillpoints,IntelligenceLvl,AgilityLvl,DisciplineLvl,EmotionsLvl,StrengthLvl,Ixp,Axp,Dxp,Exp,Sxp,Squantity,Vquantity,Wquantity,width)}}>+</a> :<Popup trigger={<a className="btn btn-outline-dark btn-sm mt-1" >+</a>} position="right center">
     <div>You do not have enough Skillpoints to level up</div>
   </Popup> }
                                 </div>
@@ -181,7 +181,7 @@ export default function Skills(props) {
                                             aria-valuemax={100}
                                         />
                                     </div>
-                                    {skillpoints>0 ? <a className="btn btn-outline-dark btn-sm mt-1" onClick={()=>{giveSExp();props.func(level,displayname,credits,skillpoints,IntelligenceLvl,AgilityLvl,DisciplineLvl,EmotionsLvl,StrengthLvl,Ixp,Axp,Dxp,Exp,Sxp,Squantity,Vquantity,Wquantity)}}>+</a> :<Popup trigger={<a className="btn btn-outline-dark btn-sm mt-1" >+</a>} position="right center">
+                                    {skillpoints>0 ? <a className="btn btn-outline-dark btn-sm mt-1" onClick={()=>{giveSExp();props.func(level,displayname,credits,skillpoints,IntelligenceLvl,AgilityLvl,DisciplineLvl,EmotionsLvl,StrengthLvl,Ixp,Axp,Dxp,Exp,Sxp,Squantity,Vquantity,Wquantity,width)}}>+</a> :<Popup trigger={<a className="btn btn-outline-dark btn-sm mt-1" >+</a>} position="right center">
     <div>You do not have enough Skillpoints to level up</div>
   </Popup> }
                                 </div>
@@ -203,7 +203,7 @@ export default function Skills(props) {
                                             aria-valuemax={100}
                                         />
                                     </div>
-                                    {skillpoints>0 ? <a className="btn btn-outline-dark btn-sm mt-1" onClick={()=>{giveDExp();props.func(level,displayname,credits,skillpoints,IntelligenceLvl,AgilityLvl,DisciplineLvl,EmotionsLvl,StrengthLvl,Ixp,Axp,Dxp,Exp,Sxp,Squantity,Vquantity,Wquantity)}}>+</a> :<Popup trigger={<a className="btn btn-outline-dark btn-sm mt-1" >+</a>} position="right center">
+                                    {skillpoints>0 ? <a className="btn btn-outline-dark btn-sm mt-1" onClick={()=>{giveDExp();props.func(level,displayname,credits,skillpoints,IntelligenceLvl,AgilityLvl,DisciplineLvl,EmotionsLvl,StrengthLvl,Ixp,Axp,Dxp,Exp,Sxp,Squantity,Vquantity,Wquantity,width)}}>+</a> :<Popup trigger={<a className="btn btn-outline-dark btn-sm mt-1" >+</a>} position="right center">
     <div>You do not have enough Skillpoints to level up</div>
   </Popup> }
                                 </div>
@@ -225,7 +225,7 @@ export default function Skills(props) {
                                             aria-valuemax={100}
                                         />
                                     </div>
-                                    {skillpoints>0 ? <a className="btn btn-outline-dark btn-sm mt-1" onClick={()=>{giveEExp();props.func(level,displayname,credits,skillpoints,IntelligenceLvl,AgilityLvl,DisciplineLvl,EmotionsLvl,StrengthLvl,Ixp,Axp,Dxp,Exp,Sxp,Squantity,Vquantity,Wquantity)}}>+</a> :<Popup trigger={<a className="btn btn-outline-dark btn-sm mt-1" >+</a>} position="right center">
+                                    {skillpoints>0 ? <a className="btn btn-outline-dark btn-sm mt-1" onClick={()=>{giveEExp();props.func(level,displayname,credits,skillpoints,IntelligenceLvl,AgilityLvl,DisciplineLvl,EmotionsLvl,StrengthLvl,Ixp,Axp,Dxp,Exp,Sxp,Squantity,Vquantity,Wquantity,width)}}>+</a> :<Popup trigger={<a className="btn btn-outline-dark btn-sm mt-1" >+</a>} position="right center">
     <div>You do not have enough Skillpoints to level up</div>
   </Popup> }
                                 </div>

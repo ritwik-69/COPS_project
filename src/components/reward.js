@@ -27,8 +27,9 @@ export default function Reward(props) {
   const [Exp,setEXp]=useState(props.Exp);
   const [StrengthLvl,setSlvl]=useState(props.skillSlvl);
   const [Sxp,setSXp]=useState(props.Sxp);
+  const [width,setwidth]=useState(props.width);
 
-  const width = (xp / 400) * 100 + '%';
+
   function buy(){
     setCredits(credits-100);
   }
@@ -45,7 +46,7 @@ export default function Reward(props) {
 
   return (
     <div>
-      <Playertab user={displayname} level={level} width={props.width} credits={credits} skillpoints={skillpoints}/>
+      <Playertab xp={xp} user={displayname} level={level} width={width} credits={credits} skillpoints={skillpoints}/>
       
 
       
@@ -62,7 +63,7 @@ export default function Reward(props) {
                                 <div className="or-container"><div className="line-separator"></div> <div className="line-separator"></div></div>
                                 <p className="card-text "> <h6> Play a sport of your interest for 1 hour whenever you wish to</h6> </p>
                                 <p className="card-text "> <h6>Cost: 100 <FontAwesomeIcon icon={faDiamond} /> </h6> </p>
-                                {credits>0 ? <button className='btn btn-primary' onClick={()=>{buy();addS();props.func(level,displayname,credits,skillpoints,IntelligenceLvl,AgilityLvl,DisciplineLvl,EmotionsLvl,StrengthLvl,Ixp,Axp,Dxp,Exp,Sxp,Squantity,Vquantity,Wquantity)}}> Add to Inventory</button> :<Popup trigger={<button className='btn btn-primary'> Add to Inventory</button>} position="right center">
+                                {credits>0 ? <button className='btn btn-primary' onClick={()=>{buy();addS();props.func(level,displayname,credits,skillpoints,IntelligenceLvl,AgilityLvl,DisciplineLvl,EmotionsLvl,StrengthLvl,Ixp,Axp,Dxp,Exp,Sxp,Squantity,Vquantity,Wquantity,width)}}> Add to Inventory</button> :<Popup trigger={<button className='btn btn-primary'> Add to Inventory</button>} position="right center">
     <div>You do not have enough credits to buy this item</div>
   </Popup>}
                             </div>
@@ -75,7 +76,7 @@ export default function Reward(props) {
                                 <div className="or-container"><div className="line-separator"></div> <div className="line-separator"></div></div>
                                 <p className="card-text "> <h6> Play a Videogames of your interest for 1 hour whenever you wish to</h6> </p>
                                 <p className="card-text "> <h6>Cost: 100 <FontAwesomeIcon icon={faDiamond} /> </h6> </p>
-                                {credits>0 ? <button className='btn btn-primary' onClick={()=>{buy();addV();props.func(level,displayname,credits,skillpoints,IntelligenceLvl,AgilityLvl,DisciplineLvl,EmotionsLvl,StrengthLvl,Ixp,Axp,Dxp,Exp,Sxp,Squantity,Vquantity,Wquantity)}}> Add to Inventory</button> :<Popup trigger={<button className='btn btn-primary'> Add to Inventory</button>} position="right center">
+                                {credits>0 ? <button className='btn btn-primary' onClick={()=>{buy();addV();props.func(level,displayname,credits,skillpoints,IntelligenceLvl,AgilityLvl,DisciplineLvl,EmotionsLvl,StrengthLvl,Ixp,Axp,Dxp,Exp,Sxp,Squantity,Vquantity,Wquantity,width)}}> Add to Inventory</button> :<Popup trigger={<button className='btn btn-primary'> Add to Inventory</button>} position="right center">
     <div>You do not have enough credits to buy this item</div>
   </Popup>}
                             </div>
@@ -88,7 +89,7 @@ export default function Reward(props) {
                                 <div className="or-container"><div className="line-separator"></div> <div className="line-separator"></div></div>
                                 <p className="card-text "> <h6>watch Web series or anime of your choice for 1 hour whenever you wish to</h6> </p>
                                 <p className="card-text "> <h6>Cost: 100 <FontAwesomeIcon icon={faDiamond} /> </h6> </p>
-                                {credits>0 ? <button className='btn btn-primary' onClick={()=>{buy();addW();props.func(level,displayname,credits,skillpoints,IntelligenceLvl,AgilityLvl,DisciplineLvl,EmotionsLvl,StrengthLvl,Ixp,Axp,Dxp,Exp,Sxp,Squantity,Vquantity,Wquantity)}}> Add to Inventory</button> :<Popup trigger={<button className='btn btn-primary'> Add to Inventory</button>} position="right center">
+                                {credits>0 ? <button className='btn btn-primary' onClick={()=>{buy();addW();props.func(level,displayname,credits,skillpoints,IntelligenceLvl,AgilityLvl,DisciplineLvl,EmotionsLvl,StrengthLvl,Ixp,Axp,Dxp,Exp,Sxp,Squantity,Vquantity,Wquantity,width)}}> Add to Inventory</button> :<Popup trigger={<button className='btn btn-primary'> Add to Inventory</button>} position="right center">
     <div>You do not have enough credits to buy this item</div>
   </Popup>}
                             </div>

@@ -65,6 +65,7 @@ function App(props) {
     function giveExp(number){
       setCredits(credits+100);
       setXp(xp+50);
+      setWidth((xp/400)*100 + '%')
       setskillpoints(skillpoints+25)
       updatecounters();//update
 
@@ -78,7 +79,7 @@ function App(props) {
 
   const markTodo = index => {
     giveExp()
-    props.func(level,displayname,credits,skillpoints,IntelligenceLvl,AgilityLvl,DisciplineLvl,EmotionsLvl,StrengthLvl,Ixp,Axp,Dxp,Exp,Sxp,Squantity,Vquantity,Wquantity)
+    props.func(level,displayname,credits,skillpoints,IntelligenceLvl,AgilityLvl,DisciplineLvl,EmotionsLvl,StrengthLvl,Ixp,Axp,Dxp,Exp,Sxp,Squantity,Vquantity,Wquantity,width)
     const newTodos = [...todos];
     newTodos[index].isDone = true;
     setTodos(newTodos);
@@ -115,10 +116,11 @@ function App(props) {
   const [Exp,setEXp]=useState(props.Exp);
   const [StrengthLvl,setSlvl]=useState(props.skillSlvl);
   const [Sxp,setSXp]=useState(props.Sxp);
-  const width = (xp / 400) * 100 + '%';
+  const [width,setWidth] = useState(props.width);
+  
   return (
     <>
-    <Playertab user={displayname} level={level} width={width} credits={credits} skillpoints={skillpoints}/>
+    <Playertab xp={xp} user={displayname} level={level} width={width} credits={credits} skillpoints={skillpoints}/>
     <div className="app ">
       <div className="container ">
         <div className="card ">
