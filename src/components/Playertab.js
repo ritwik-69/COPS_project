@@ -27,7 +27,7 @@ export default function Playertab(props) {
                     />
                     <div className="mt-4">
                       <h4>{props.user}</h4>
-                      <p className="text-secondary mb-5 text-dark" >IIT (BHU) Varanansi {props.width}</p>
+                      <p className="text-secondary mb-5 text-dark" >IIT (BHU) Varanansi </p>
                     </div>
                   </div>
                 </div>
