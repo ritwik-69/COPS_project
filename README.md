@@ -21,9 +21,7 @@ Future things to be added:
 Some bugs still to be resolved:
 <br>
 1)implementing local storage which could not be implemented due to time constraints 
-<br>
-2)Level bar not visible sometimes
-<br>
+
 
 
 Thank you for the great experience in debugit.
