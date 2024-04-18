@@ -25,3 +25,7 @@ Some bugs still to be resolved:
 
 
 Thank you for the great experience in debugit.
+
+
+
+here is the deployed site : https://cops-project.onrender.com
